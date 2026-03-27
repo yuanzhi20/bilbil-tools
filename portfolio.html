@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI生图作品集 - 在线工具箱</title>
+<meta name="description" content="AI生成精美图片 - 古风、动漫、水墨画、汉服，全部由AI创作">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f0f1a;color:#e0e0e0}
+.header{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);padding:2rem;text-align:center}
+.header h1{font-size:2rem;background:linear-gradient(90deg,#e94560,#f39c12);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header p{color:#aaa;margin-top:.5rem;font-size:.95rem}
+.stats{display:flex;justify-content:center;gap:2rem;margin:1.5rem;font-size:.85rem;color:#888}
+.stats span{color:#e94560;font-weight:bold}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;max-width:1200px;margin:0 auto;padding:0 1rem 2rem}
+.card{background:#1a1a2e;border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.card:hover{transform:translateY(-4px);box-shadow:0 8px 25px rgba(233,69,96,.2)}
+.card img{width:100%;height:350px;object-fit:cover;display:block}
+.card .info{padding:1rem}
+.card .info h3{font-size:.95rem;margin-bottom:.3rem}
+.card .info p{font-size:.8rem;color:#888}
+.card .info .tags{margin-top:.5rem;display:flex;gap:.3rem;flex-wrap:wrap}
+.tag{background:#e9456022;color:#e94560;padding:.15rem .5rem;border-radius:12px;font-size:.7rem}
+.cta{text-align:center;padding:2rem}
+.cta a{display:inline-block;padding:.8rem 2rem;background:linear-gradient(135deg,#e94560,#f39c12);color:#fff;text-decoration:none;border-radius:8px;font-weight:600;font-size:1rem;transition:opacity .2s}
+.cta a:hover{opacity:.85}
+.footer{text-align:center;padding:1rem;color:#555;font-size:.8rem}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>🎨 AI 生图作品集</h1>
+<p>全部由AI创作 · Stable Diffusion · 本地GPU渲染</p>
+</div>
+<div class="stats">
+<div>作品数 <span>5</span></div>
+<div>模型 <span>4种</span></div>
+<div>LoRA <span>4种</span></div>
+<div>渲染时间 <span>~25秒/张</span></div>
+</div>
+<div class="grid">
+<div class="card">
+<img src="portfolio/gufeng_girl.png" alt="古风少女" loading="lazy">
+<div class="info">
+<h3>🌸 古风少女</h3>
+<p>白汉服少女，樱花树下，金色光影</p>
+<div class="tags"><span class="tag">古风</span><span class="tag">PUS古风</span><span class="tag">国风水墨LoRA</span></div>
+</div>
+</div>
+<div class="card">
+<img src="portfolio/anime_girl.png" alt="动漫少女" loading="lazy">
+<div class="info">
+<h3>✨ 银发少女</h3>
+<p>银发蓝眼，夕阳校园，樱花飘落</p>
+<div class="tags"><span class="tag">动漫</span><span class="tag">Anything V5</span><span class="tag">日系</span></div>
+</div>
+</div>
+<div class="card">
+<img src="portfolio/ink_landscape.png" alt="水墨山水" loading="lazy">
+<div class="info">
+<h3>🏔️ 水墨山水</h3>
+<p>中国传统水墨画风格，云雾缭绕</p>
+<div class="tags"><span class="tag">水墨</span><span class="tag">山水</span><span class="tag">PUS古风</span></div>
+</div>
+</div>
+<div class="card">
+<img src="portfolio/swordsman.png" alt="修仙剑客" loading="lazy">
+<div class="info">
+<h3>⚔️ 修仙剑客</h3>
+<p>白衣剑客，山巅雷云，史诗场景</p>
+<div class="tags"><span class="tag">古风</span><span class="tag">Counterfeit</span><span class="tag">修仙</span></div>
+</div>
+</div>
+<div class="card">
+<img src="portfolio/hanfu_girls.png" alt="汉服少女" loading="lazy">
+<div class="info">
+<h3>👘 汉服少女</h3>
+<p>双少女红金汉服，宫殿花园荷花池</p>
+<div class="tags"><span class="tag">汉服</span><span class="tag">Anything V5</span><span class="tag">写实汉服LoRA</span></div>
+</div>
+</div>
+</div>
+<div class="cta">
+<a href="ai-art.html">🎯 我也要AI生图 — 免费体验</a>
+</div>
+<div class="footer">GPU: Tesla P100 16GB × 2 · 渲染引擎: ComfyUI · 模型: Anything V5 / PUS古风 / Counterfeit V3</div>
+</body>
+</html>
