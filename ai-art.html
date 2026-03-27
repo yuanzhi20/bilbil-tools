@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI生图 - 在线工具箱</title>
+<meta name="description" content="免费AI生图：动漫、古风、二次元、NovelAI风格，多种模型+LoRA组合，10秒出图。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f5f7fa;color:#333}
+.header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:1.5rem;text-align:center}
+.header h1{font-size:1.5rem;margin-bottom:.3rem}
+.header p{opacity:.9;font-size:.9rem}
+.container{max-width:900px;margin:1.5rem auto;padding:0 1rem}
+.panel{background:#fff;border-radius:12px;padding:1.5rem;margin-bottom:1rem;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.panel h3{margin-bottom:.8rem;font-size:1rem;color:#555}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.8rem}
+select,input[type=text],textarea{padding:.6rem;border:1px solid #ddd;border-radius:8px;font-size:14px}
+select{min-width:120px}
+textarea{width:100%;height:80px;resize:vertical;font-family:inherit}
+.btn{padding:.6rem 1.2rem;border:none;border-radius:8px;cursor:pointer;font-size:14px;color:#fff;transition:opacity .2s}
+.btn:hover{opacity:.85}
+.btn-primary{background:#667eea}
+.btn-success{background:#48bb78}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.preview{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1rem}
+.preview img{max-width:100%;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.loading{display:none;text-align:center;padding:2rem;color:#667eea;font-size:1.1rem}
+.loading.show{display:block}
+.error{color:#e53e3e;font-size:.9rem;margin-top:.5rem}
+.back{text-align:center;margin-bottom:1rem}
+.back a{color:#667eea;text-decoration:none;font-size:.9rem}
+.back a:hover{text-decoration:underline}
+.chip{display:inline-block;padding:.3rem .8rem;border-radius:20px;font-size:13px;cursor:pointer;border:2px solid #ddd;margin:.2rem;transition:all .2s}
+.chip.active{background:#667eea;color:#fff;border-color:#667eea}
+.chip:hover{border-color:#667eea}
+.examples{font-size:.85rem;color:#888;margin-top:.5rem}
+.examples span{color:#667eea;cursor:pointer;text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="header"><h1>🎭 AI 生图</h1><p>动漫/古风/二次元，多种模型+LoRA，10秒出图</p></div>
+<div class="back"><a href="/bilbil-tools/">← 返回工具箱</a></div>
+<div class="container">
+<div class="panel">
+<h3>🎨 模型选择</h3>
+<div class="row">
+<select id="model">
+<option value="anything_v5">Anything V5 - 动漫风格</option>
+<option value="counterfeit_v3">Counterfeit V3 - 二次元</option>
+<option value="pus_guofeng" selected>PUS古风 - 小说推文</option>
+<option value="novelai_v2">NovelAI V2 - 插画</option>
+</select>
+</div>
+<h3>✨ LoRA（可多选）</h3>
+<div class="row" id="loras">
+<span class="chip" data-lora="guofeng">国风水墨</span>
+<span class="chip" data-lora="jianxian">修仙剑诀</span>
+<span class="chip" data-lora="handfix">手部修复</span>
+<span class="chip" data-lora="liangyi">写实汉服</span>
+</div>
+</div>
+<div class="panel">
+<h3>✏️ 提示词</h3>
+<textarea id="prompt" placeholder="描述你想要的画面，如：1girl, long black hair, red dress, cherry blossoms, masterpiece"></textarea>
+<div class="examples">示例：
+<span onclick="setPrompt('1girl, solo, long black hair, red dress, standing in snow, cherry blossoms, detailed face, masterpiece, best quality')">动漫少女</span> |
+<span onclick="setPrompt('1boy, ancient chinese swordsman, white robe, standing on mountain peak, clouds, dramatic lighting, masterpiece, best quality')">古风剑客</span> |
+<span onclick="setPrompt('2girls, chinese ancient palace garden, hanfu, cherry blossoms, soft lighting, masterpiece, detailed')">汉服少女</span> |
+<span onclick="setPrompt('ancient chinese temple, misty mountains, ink painting style, dramatic clouds, masterpiece')">水墨山水</span>
+</div>
+</div>
+<div class="panel">
+<h3>⚙️ 参数</h3>
+<div class="row">
+<label>尺寸：</label>
+<select id="size">
+<option value="512x768">512×768 竖版</option>
+<option value="768x512">768×512 横版</option>
+<option value="768x768" selected>768×768 方形</option>
+<option value="512x512">512×512 小方形</option>
+</select>
+<label>步数：</label>
+<select id="steps"><option value="15">15 快速</option><option value="20">20 标准</option><option value="25" selected>25 精细</option><option value="30">30 高质量</option></select>
+<label>CFG：</label>
+<select id="cfg"><option value="5">5</option><option value="7" selected>7</option><option value="9">9</option><option value="11">11</option></select>
+</div>
+<button class="btn btn-primary" id="generate" onclick="generate()">🎨 开始生成</button>
+<button class="btn btn-success" id="download" onclick="downloadImg()" style="display:none">📥 下载图片</button>
+<div class="loading" id="loading">⏳ 正在生成中，请等待10-30秒...</div>
+<div class="error" id="error"></div>
+</div>
+<div class="panel" id="resultPanel" style="display:none">
+<h3>🖼️ 生成结果</h3>
+<div class="preview" id="preview"></div>
+</div>
+</div>
+<script>
+const API='http://8.137.159.150:8189';
+let lastImage=null;
+let selectedLoras=new Set();
+
+// LoRA选择
+document.querySelectorAll('#loras .chip').forEach(c=>{
+  c.addEventListener('click',()=>{
+    const lora=c.dataset.lora;
+    if(selectedLoras.has(lora)){selectedLoras.delete(lora);c.classList.remove('active')}
+    else{selectedLoras.add(lora);c.classList.add('active')}
+  });
+});
+
+function setPrompt(t){document.getElementById('prompt').value=t}
+
+async function generate(){
+  const prompt=document.getElementById('prompt').value.trim();
+  if(!prompt){document.getElementById('error').textContent='请输入提示词';return}
+  document.getElementById('error').textContent='';
+  document.getElementById('loading').classList.add('show');
+  document.getElementById('generate').disabled=true;
+  document.getElementById('resultPanel').style.display='none';
+  try{
+    const [w,h]=document.getElementById('size').value.split('x').map(Number);
+    const res=await fetch(API+'/generate',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        prompt,negative:'lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, jpeg artifacts, watermark',
+        model:document.getElementById('model').value,
+        loras:Array.from(selectedLoras),
+        width:w,height:h,
+        steps:parseInt(document.getElementById('steps').value),
+        cfg:parseInt(document.getElementById('cfg').value)
+      })
+    });
+    const data=await res.json();
+    if(data.error){document.getElementById('error').textContent='错误: '+data.error;return}
+    const fname=data.images[0].filename;
+    const url=API+'/output/'+fname;
+    lastImage=url;
+    document.getElementById('preview').innerHTML='<img src="'+url+'" alt="AI生成图片">';
+    document.getElementById('resultPanel').style.display='block';
+    document.getElementById('download').style.display='inline-block';
+  }catch(e){document.getElementById('error').textContent='网络错误，请重试'}
+  finally{document.getElementById('loading').classList.remove('show');document.getElementById('generate').disabled=false}
+}
+
+function downloadImg(){
+  if(!lastImage)return;
+  const a=document.createElement('a');a.href=lastImage;a.download='ai_art_'+Date.now()+'.png';a.click();
+}
+</script>
+</body>
+</html>

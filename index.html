@@ -12,17 +12,21 @@
 <body>
 <div class="header"><h1>🔧 在线工具箱</h1><p>免费、快速、无需注册，所有处理在浏览器本地完成</p></div>
 <div class="tools">
-<div class="tool-card" onclick="renderTool('json')"><div class="icon">📋</div><h3>JSON 格式化/验证</h3><p>美化、压缩、验证JSON数据</p></div>
-<div class="tool-card" onclick="renderTool('image')"><div class="icon">🖼️</div><h3>图片压缩</h3><p>在线压缩PNG/JPG图片</p></div>
-<div class="tool-card" onclick="renderTool('base64')"><div class="icon">🔤</div><h3>Base64 编解码</h3><p>文本与Base64互转</p></div>
-<div class="tool-card" onclick="renderTool('qrcode')"><div class="icon">📱</div><h3>二维码生成</h3><p>输入文字或网址生成二维码</p></div>
-<div class="tool-card" onclick="renderTool('url')"><div class="icon">🔗</div><h3>URL 编解码</h3><p>处理URL特殊字符</p></div>
-<div class="tool-card" onclick="renderTool('timestamp')"><div class="icon">⏰</div><h3>时间戳转换</h3><p>Unix时间戳与日期互转</p></div>
-<div class="tool-card" onclick="renderTool('hash')"><div class="icon">🔐</div><h3>哈希计算</h3><p>SHA-256/SHA-1哈希计算</p></div>
-<div class="tool-card" onclick="renderTool('color')"><div class="icon">🎨</div><h3>颜色转换</h3><p>HEX/RGB/HSL互转</p></div>
+<div class="tool-card" onclick="showTool('json')"><div class="icon">📋</div><h3>JSON 格式化/验证</h3><p>美化、压缩、验证JSON数据</p></div>
+<div class="tool-card" onclick="showTool('image')"><div class="icon">🖼️</div><h3>图片压缩</h3><p>在线压缩PNG/JPG图片</p></div>
+<div class="tool-card" onclick="showTool('base64')"><div class="icon">🔤</div><h3>Base64 编解码</h3><p>文本与Base64互转</p></div>
+<div class="tool-card" onclick="showTool('qrcode')"><div class="icon">📱</div><h3>二维码生成</h3><p>输入文字或网址生成二维码</p></div>
+<div class="tool-card" onclick="showTool('url')"><div class="icon">🔗</div><h3>URL 编解码</h3><p>处理URL特殊字符</p></div>
+<div class="tool-card" onclick="showTool('timestamp')"><div class="icon">⏰</div><h3>时间戳转换</h3><p>Unix时间戳与日期互转</p></div>
+<div class="tool-card" onclick="showTool('hash')"><div class="icon">🔐</div><h3>哈希计算</h3><p>SHA-256/SHA-1哈希计算</p></div>
+<div class="tool-card" onclick="showTool('color')"><div class="icon">🎨</div><h3>颜色转换</h3><p>HEX/RGB/HSL互转</p></div>
+</div>
+<h2 style="max-width:1200px;margin:0 auto 0.5rem;padding:0 1rem;font-size:1.3rem;color:#444">🤖 AI 工具</h2>
+<div class="tools" style="margin-top:0.5rem">
+<div class="tool-card" onclick="window.open('/bilbil-tools/ai-art.html','_blank')"><div class="icon">🎭</div><h3>AI 生图</h3><p>动漫/古风/二次元，多种模型+LoRA，10秒出图</p></div>
 </div>
 <div id="app"></div>
 <div class="footer">在线工具箱 — 数据处理均在浏览器本地完成</div>
-<script src="https://cdn.jsdelivr.net/gh/yuanzhi20/bilbil-tools@gh-pages/tools.js"></script>
+<script src="tools.js"></script>
 </body>
 </html>
