@@ -1,6 +1,12 @@
 
 // 简单的路由系统
 const app = document.getElementById('app');
+
+// 导航函数（index.html的onclick调用）
+function showTool(name) {
+  renderTool(name);
+  app.scrollIntoView({ behavior: 'smooth' });
+}
 function renderTool(name) {
   const tools = {
     json: `<div style="max-width:800px;margin:2rem auto;padding:0 1rem"><h2>📋 JSON 格式化/验证</h2>
